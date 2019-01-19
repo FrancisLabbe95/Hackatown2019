@@ -8,12 +8,20 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  title = "Welcome to PolyPaintPro.";
+  loginText = 'Please enter your credentials';
+  errorMessage = "Login was not possible";
+  showErrorMessage = false;
+
+  username = "";
+  password = "";
+
   constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  testRouting(): void{
+  onSubmit(): void{
     this.router.navigateByUrl('/home');
   }
   

@@ -6,9 +6,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import { CustomMaterialModule } from './core/material.module';
-
-
-
+import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -28,6 +26,8 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     CustomMaterialModule,
+    FormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(
       appRoutes
     )
