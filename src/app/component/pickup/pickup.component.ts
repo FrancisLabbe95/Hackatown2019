@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pickup',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PickupComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
+
+  username: string = "Francis"
 
   ngOnInit() {
+  }
+
+  giveBottles(): void { 
+    this.router.navigateByUrl('/home');
   }
 
 }

@@ -1,3 +1,16 @@
-<p>
-  pickup works!
-</p>
+<mat-toolbar color="primary">
+    {{username}}
+  
+    <span class="example-fill-remaining-space"></span>
+  
+    <span class="rightMenu">
+    
+        <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+        
+      
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="giveBottles()">Give Bottles!</button>
+          <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+      </span>
+  </mat-toolbar>
