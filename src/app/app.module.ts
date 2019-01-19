@@ -11,13 +11,19 @@ import { CustomMaterialModule } from './core/material.module';
 
 
 import { AppComponent } from './app.component';
+import { LoginComponent } from './component/login/login.component';
+import { HomeComponent } from './component/home/home.component';
 
 const appRoutes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
