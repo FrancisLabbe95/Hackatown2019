@@ -33,6 +33,19 @@ public class UserService {
 	
 	private HibernateUtil hibernateUtil = new HibernateUtil();
 
+	public UserService() {
+		add(new User(1015, "Paul", false, "3000 rue des Paquerettes", 8, 0));
+		add(new User(1016, "Brendon", true, "3001 rue des Paquerettes", 96, 0));
+		add(new User(1017, "Jacob", false, "450 rue des Baccalaureats", 8, 0));
+		add(new User(1018, "Bernard", true, "1806 rue des Professeurs", 96, 0));
+		add(new User(1019, "Bruno", true, "781 rue du Curé", 8, 0));
+		add(new User(1020, "Pitbull", true, "666 rue du Diable", 96, 0));
+		add(new User(1021, "Toto", true, "4545 rue des Addresses Fake", 8, 0));
+		add(new User(1022, "CNN", true, "233 rue des Paquerettes", 96, 0));
+		add(new User(1023, "Fox News", true, "56 rue des Paquerettes", 8, 0));
+		add(new User(1024, "Wololololo", true, "1791 rue des Rues", 96, 0));
+	}
+
 	public void add(User user) {
 		EntityManager em = hibernateUtil.getEntityManager();
 		em.getTransaction().begin();
@@ -58,10 +71,28 @@ public class UserService {
 		return user;
 	}
 
+	public User get(String name) {
+		EntityManager em = hibernateUtil.getEntityManager();
+		em.getTransaction().begin();
+		User user = (User) em.createQuery( "from User user where user.name=\'" + name + "\'" ).getSingleResult();
+		em.getTransaction().commit();
+		em.close();
+		return user;
+	}
+
 	public List<User> getAll() {
 		EntityManager em = hibernateUtil.getEntityManager();
 		em.getTransaction().begin();
-		List list = em.createQuery( "from User", User.class ).getResultList();
+		List list = em.createQuery( "from User user", User.class ).getResultList();
+		em.getTransaction().commit();
+		em.close();
+		return list;
+	}
+
+	public List<User> getAllWhere(int stock) {
+		EntityManager em = hibernateUtil.getEntityManager();
+		em.getTransaction().begin();
+		List list = em.createQuery( "from User user where user.stock>" + stock + " and user.availability=TRUE", User.class ).getResultList();
 		em.getTransaction().commit();
 		em.close();
 		return list;

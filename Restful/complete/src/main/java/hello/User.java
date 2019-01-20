@@ -18,19 +18,22 @@ import org.hibernate.annotations.GenericGenerator;
 public class User {
     private long id;
     private String name;
-   /* private final String email;
-    private final Date availability;
-    private final String address;
-    private final int stock; */
+    // private final String email;
+    private Boolean availability;
+    private String address;
+    private int stock;
     private int userType;
     
     
     public User() {
     }
 
-    public User(long id, String name, int userType) {
+    public User(long id, String name, Boolean availability, String address, int stock, int userType) {
         this.id = id;
         this.name = name;
+        this.availability = availability;
+        this.address = address;
+        this.stock = stock;
         this.userType = userType;
     }
     
@@ -49,6 +52,30 @@ public class User {
     
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getAvailability() {
+        return availability;
+    }
+
+    public void setAvailability(Boolean availability) {
+        this.availability = availability;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public int getUserType() {

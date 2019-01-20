@@ -1,8 +1,7 @@
 package hello;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -17,19 +16,41 @@ public class UserController {
     private final AtomicLong counter = new AtomicLong();
     private final UserService service = new UserService();
 
-    @RequestMapping("/users")
-    public List<User> users() {
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
     	return service.getAll();
     }
-    
-    @RequestMapping("/user")
-    public String user(@RequestParam(value = "name", defaultValue = "Bob") String name,@RequestParam(value = "type") int type ) {
-        service.add(new User(counter.incrementAndGet(), name, type));
-        return "200 OK";
+
+    @GetMapping("/pickups")
+    public List<User> getPickups(@RequestParam(value = "stock", defaultValue = "6") int stock) {
+        return service.getAllWhere(stock);
+    }
+
+    @PostMapping("/users")
+    public String addUser(@RequestBody User user) {
+        service.add(user);
+        return "200 OK but may not be ok, we do not know. lul";
     }
     
-    @RequestMapping("/user/a")
-    public String a() {
-        return "allo";
+    @GetMapping("/user")
+    public User findUserByName(@RequestParam(value = "name", defaultValue = "") String name) {
+        if(name.equals("")) {
+            // return "Missing name parameter";
+            return null;
+        } else {
+            return service.get(name);
+        }
+    }
+
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable Long id) {
+        return service.get(id);
+    }
+
+    @PutMapping("/user/{id}")
+    public String updateUser(@RequestBody User user, @PathVariable Long id) {
+        user.setId(id); // This is sketchy.
+        service.update(user);
+        return "200 OK but may not be ok, we do not know. lul";
     }
 }
