@@ -13,7 +13,17 @@ export class ServerCommunicationService {
 
     getUser(): Promise<string> {
 
-        return
+        return this.htttpClient.get<Response>(this.serverUrl + "/pickups", {}).toPromise().then((data => {
+            console.log(data);
+            if(data["success"] == true )
+            {
+
+                return data["Data"];
+            }
+            else{
+                return false
+            }
+        }))
     }
 
     getPickup(): Promise<number> {

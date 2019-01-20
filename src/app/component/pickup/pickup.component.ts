@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { ViewChild } from '@angular/core';
 import { } from '@types/googlemaps';
 
+import {ServerCommunicationService} from '../../server-communication.service'
+import {Addresses} from '../../Addresses'
+
 @Component({
   selector: 'app-pickup',
   templateUrl: './pickup.component.html',
@@ -14,7 +17,7 @@ export class PickupComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   map: google.maps.Map;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private server: ServerCommunicationService) { }
 
   username: string = "Francis";
   currentLat: number;
@@ -24,6 +27,9 @@ export class PickupComponent implements OnInit {
   directionsService: any;
   directionsDisplay: any;
   showAddress: boolean = false;
+  //server: ServerCommunicationService;
+  addresses: string = "No cans available"
+  
 
   ngOnInit() {
 
@@ -48,6 +54,7 @@ export class PickupComponent implements OnInit {
   }
 
   findMe() {
+    console.log(this.addresses)
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.showPosition(position);
@@ -56,8 +63,14 @@ export class PickupComponent implements OnInit {
       alert("Geolocation is not supported by this browser.");
     }
 
+    console.log(this.addresses)
+
     this.addPositions();
     this.showAddress = true;
+    this.server.getUser().then(value =>
+      this.addresses = value )
+
+    console.log(this.addresses)
   }
 
   addPositions() {
