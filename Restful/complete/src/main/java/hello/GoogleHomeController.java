@@ -19,6 +19,7 @@ public class GoogleHomeController {
 
     private final AtomicLong counter = new AtomicLong();
     private final GoogleHomeService service = new GoogleHomeService();
+    private GoogleHomeHelper helper = new GoogleHomeHelper();
 
   @RequestMapping("/googleHome/Request")
   @ResponseBody
@@ -71,32 +72,62 @@ public class GoogleHomeController {
     switch (intentName){
       case "Add_bottle":
         if(quantity >=0){
-          answer = quantity + " bottles added. Thank you.";
+          helper.addBottles((int)quantity);
+          answer = (int)quantity + " bottles added. Thank you.";
         }
         else{
+          helper.addBottles();
           answer = "Bottles added. Thank you.";
         }
         break;
       case "Remove_bottle":
         if(quantity >=0){
-          answer = quantity + " bottles removed. Thank you.";
+          helper.removeBottles((int)quantity);
+          answer = (int)quantity + " bottles removed. Thank you.";
         }
         else{
+          helper.removeBottles();
           answer = "Bottles removed. Thank you.";
         }
         break;
       case "Set_available":
         if(durationAmount >=0){
-          answer = "You are now available for " + durationAmount+ " "+unit;
+          helper.setAvailable(durationAmount,unit);
+          answer = "You are now available for " + durationAmount+ " "+unitConversion(durationAmount,unit);
         }
         else{
+          helper.setAvailable();
           answer = "You are now available.";
         }
         break;
       case "Set_unavailable":
+        helper.setUnavailable();
         answer = "You are now unavailable";
         break;
     }
     return answer;
+  }
+
+  private String unitConversion(double durationAmount, String unit){
+    String result = "Hour";
+    switch (unit){
+      case "h":
+        if(durationAmount > 1){
+          result = "Hours";
+        }
+        else{
+          result = "Hour";
+        }
+        break;
+      case "m":
+        if(durationAmount > 1){
+          result = "Minutes";
+        }
+        else{
+          result = "Minute";
+        }
+        break;
+    }
+    return result;
   }
 }

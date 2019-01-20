@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicLong;
 @RestController
 public class UserController {
 
-    private final AtomicLong counter = new AtomicLong();
+    private final AtomicLong counter = new AtomicLong(2);
     private final UserService service = new UserService();
 
     @GetMapping("/users")
