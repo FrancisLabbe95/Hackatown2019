@@ -1,7 +1,43 @@
 <mat-toolbar color="primary">
   {{username}}
+
+  <span class="example-fill-remaining-space"></span>
+
+  <span class="rightMenu">
+  
+      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+      
+    
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="pickUpBottles()">Pick up Bottles!</button>
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </mat-menu>
+    </span>
 </mat-toolbar>
 
 <mat-card>
-  nombre de Bouteille
+  <div>
+      Numbers of bottles
+  </div>
+  <br>
+  <div class="radio">
+    <label><input type="radio" name="optradio" checked>Less than 6</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="optradio">6-12</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="optradio">12-24</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="optradio">24-48</label>
+  </div>
+  <div class="radio">
+    <label><input type="radio" name="optradio">More than 48</label>
+  </div>
+
+  <div>
+    <button color="primary" mat-raised-button>Avaible for pick up</button>
+  </div>
+
 </mat-card>
