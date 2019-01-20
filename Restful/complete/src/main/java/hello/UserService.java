@@ -33,6 +33,11 @@ public class UserService {
 	
 	private HibernateUtil hibernateUtil = new HibernateUtil();
 
+	public UserService() {
+		add(new User(15, "Paul", false, "3000 rue des Paquerettes", 8, 0));
+		add(new User(16, "Brendon", true, "3001 rue des Paquerettes", 96, 0));
+	}
+
 	public void add(User user) {
 		EntityManager em = hibernateUtil.getEntityManager();
 		em.getTransaction().begin();
@@ -58,10 +63,28 @@ public class UserService {
 		return user;
 	}
 
+	public User get(String name) {
+		EntityManager em = hibernateUtil.getEntityManager();
+		em.getTransaction().begin();
+		User user = (User) em.createQuery( "from User user where user.name=\'" + name + "\'" ).getSingleResult();
+		em.getTransaction().commit();
+		em.close();
+		return user;
+	}
+
 	public List<User> getAll() {
 		EntityManager em = hibernateUtil.getEntityManager();
 		em.getTransaction().begin();
-		List list = em.createQuery( "from User", User.class ).getResultList();
+		List list = em.createQuery( "from User user", User.class ).getResultList();
+		em.getTransaction().commit();
+		em.close();
+		return list;
+	}
+
+	public List<User> getAllWhere(int stock) {
+		EntityManager em = hibernateUtil.getEntityManager();
+		em.getTransaction().begin();
+		List list = em.createQuery( "from User user where user.stock>" + stock + " and user.availability=TRUE", User.class ).getResultList();
 		em.getTransaction().commit();
 		em.close();
 		return list;
