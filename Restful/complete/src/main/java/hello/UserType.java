@@ -9,12 +9,19 @@ public enum UserType {
 
     private int _value;
 
+    UserType() { }
+
+    
     UserType(int Value) {
         this._value = Value;
     }
 
     public int getValue() {
         return _value;
+    }
+    
+    public void setValue(int value) {
+        _value = value;
     }
 
     public static UserType fromInt(int i) {
