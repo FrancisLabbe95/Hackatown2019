@@ -34,6 +34,8 @@ public class UserService {
 	private HibernateUtil hibernateUtil = new HibernateUtil();
 
 	public UserService() {
+		add(new User(1, "Google Man", false, "Polytechnique Montréal", 0, 0));
+
 		add(new User(1015, "Paul", false, "3000 rue des Paquerettes", 8, 0));
 		add(new User(1016, "Brendon", true, "3001 rue des Paquerettes", 96, 0));
 		add(new User(1017, "Jacob", false, "450 rue des Baccalaureats", 8, 0));
