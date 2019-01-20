@@ -47,7 +47,7 @@ public class UserController {
         return service.get(id);
     }
 
-    @PutMapping("/employees/{id}")
+    @PutMapping("/user/{id}")
     public String updateUser(@RequestBody User user, @PathVariable Long id) {
         user.setId(id); // This is sketchy.
         service.update(user);
